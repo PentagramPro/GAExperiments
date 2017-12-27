@@ -5,37 +5,31 @@ using UnityEngine;
 
 public class ManualController : MonoBehaviour {
 
-    public float Speed = 3;
-    public float RotationSpeed = 2;
-	// Use this for initialization
+	public ActuatorController Left, Right;
+
 	void Start () {
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        float velocity = 0;
-        float rotation = 0;
-		if(Input.GetKey(KeyCode.UpArrow))
+        
+		if(Input.GetKey(KeyCode.Q))
         {
-            velocity = Speed * Time.smoothDeltaTime;
+			Left.SetForce(1);
         }
-        else if (Input.GetKey(KeyCode.DownArrow))
+        else if (Input.GetKey(KeyCode.A))
         {
-            velocity =- Speed * Time.smoothDeltaTime;
+			Left.SetForce(-1);
         }
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.W))
         {
-            rotation += RotationSpeed * Time.smoothDeltaTime;
+			Right.SetForce(1);
         }
-        else if (Input.GetKey(KeyCode.RightArrow))
+        else if (Input.GetKey(KeyCode.S))
         {
-            rotation -= RotationSpeed * Time.smoothDeltaTime;
+			Right.SetForce(-1);
         }
-
-        transform.Rotate(Vector3.forward, rotation);
-        Debug.Log(transform.right);
-        transform.position += transform.right * velocity;
-
+		
     }
 }
