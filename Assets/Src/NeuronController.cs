@@ -9,7 +9,7 @@ public class NeuronController : MonoBehaviour {
 	ActivationNetwork network = null;
 	// Use this for initialization
 	void Start () {
-		network = new ActivationNetwork(new SigmoidFunction(2), Sensors.Count, Actuators.Count, 1);
+		network = new ActivationNetwork(new SigmoidFunction(2), Sensors.Count, Actuators.Count, Actuators.Count);
 		network.Randomize();
 		
 	}
