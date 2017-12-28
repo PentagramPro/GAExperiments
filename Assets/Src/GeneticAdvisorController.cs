@@ -18,21 +18,38 @@ public class GeneticAdvisorController : MonoBehaviour {
 		}
 	}
 
-	public AnimalController AnimalPrefab;
+	public ArenaController Arena;
+	public NeuronController AnimalPrefab;
 	public Dictionary<IChromosome, double> ratings = new Dictionary<IChromosome, double>();
 
+	public float GenerationLifetime = 15;
+	float timeCounter = 0;
 	Population population;
 
 	// Use this for initialization
 	void Start () {
+
 		population = new Population(20,
-		new DoubleArrayChromosome(new StandardGenerator(), new StandardGenerator(), new StandardGenerator(), 10),
+		new DoubleArrayChromosome(new StandardGenerator(), new StandardGenerator(), new StandardGenerator(), AnimalPrefab.PrefabGetGenomeSize()),
 		new NeuronFitnessFunction(ratings), new EliteSelection());
 
+		Arena.StartSimulation(population);
 	}
 
 	// Update is called once per frame
 	void Update () {
-		
+		timeCounter += Time.smoothDeltaTime;
+		if(timeCounter>GenerationLifetime)
+		{
+			timeCounter = 0;
+			NextGeneration();
+		}
+	}
+
+	void NextGeneration()
+	{
+		Arena.StopSimulation();
+
+		Arena.StartSimulation();
 	}
 }
