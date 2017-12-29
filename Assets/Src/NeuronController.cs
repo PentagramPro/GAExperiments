@@ -9,7 +9,18 @@ public class NeuronController : MonoBehaviour {
 	public List<ActuatorController> Actuators;
 	ActivationNetwork network = null;
 	public IChromosome LinkedChromosome { get; private set; }
-	public float Rating { get; private set; }
+    public AnimalController animalController;
+	public float Rating {
+        get
+        {
+            if(animalController == null)
+            {
+                return 0;
+            }
+
+            return animalController.Eaten;
+        }
+    }
 
 	public int GenomSize { get; private set; }
 	// Use this for initialization
@@ -17,7 +28,25 @@ public class NeuronController : MonoBehaviour {
 		network = CreateNetwork();
 		network.Randomize();
 		GenomSize = CalculateNetworkSize(network);
-	}
+        if(GenomSize!=data.Length)
+        {
+            Debug.LogError("data has wrong length");
+            return;
+        }
+        int index = 0;
+        foreach (var l in network.Layers)
+        {
+            foreach (var n in l.Neurons)
+            {
+                for (int i = 0; i < n.Weights.Length; i++)
+                {
+                    n.Weights[i] = data[index];
+                    index++;
+                }
+            }
+        }
+        
+    }
 
 	public int PrefabGetGenomeSize()
 	{

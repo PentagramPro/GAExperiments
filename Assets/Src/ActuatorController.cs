@@ -28,6 +28,8 @@ public class ActuatorController : MonoBehaviour {
 
 	public void SetForce(float amount)
 	{
+        if (rigidbody == null)
+            return;
 		amount = Mathf.Clamp(amount,-1,1);
 		var forceVector = transform.TransformVector(vectorOne).normalized*Force*amount;
 		rigidbody.AddForceAtPosition(forceVector, transform.position);

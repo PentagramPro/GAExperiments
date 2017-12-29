@@ -7,6 +7,8 @@ public class ArenaController : MonoBehaviour {
 
 	public Vector3 SpawnArea = new Vector3(1,1);
 	public NeuronController AnimalPrefab;
+    public SensorTargetController FoodPrefab;
+    public int FoodCount = 15;
 
 	// Use this for initialization
 	void Start () {
@@ -40,12 +42,28 @@ public class ArenaController : MonoBehaviour {
 			var animal = AnimalPrefab.PrefabInstantiate(c.Value, c, transform);
 			animal.transform.localPosition = GetRandomPosition();
 		}
+        for(int i=0;i<FoodCount;i++)
+        {
+            var food = Instantiate(FoodPrefab,transform);
+            food.transform.localPosition = GetRandomPosition();
+        }
 	}
 
-	public void StopSimulation()
+	public void StopSimulation(Dictionary<IChromosome, double> ratings)
 	{
+        ratings.Clear();
 
-	}
+        var animals = GetComponentsInChildren<NeuronController>();
+        foreach(var animal in animals)
+        {
+            ratings.Add(animal.LinkedChromosome, animal.Rating);
+        }
+
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
 
 	Vector3 GetRandomPosition()
 	{

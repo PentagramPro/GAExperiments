@@ -14,7 +14,13 @@ public class GeneticAdvisorController : MonoBehaviour {
 		}
 		public double Evaluate(IChromosome chromosome)
 		{
-			return ratings[chromosome];
+            
+            if(!ratings.ContainsKey(chromosome))
+            {
+                return 0;
+            }
+            Debug.Log(string.Format("Evaluate for {0}", chromosome.GetHashCode()));
+            return ratings[chromosome];
 		}
 	}
 
@@ -28,11 +34,12 @@ public class GeneticAdvisorController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
-		population = new Population(20,
+        Debug.Log("Creating population");
+        population = new Population(20,
 		new DoubleArrayChromosome(new StandardGenerator(), new StandardGenerator(), new StandardGenerator(), AnimalPrefab.PrefabGetGenomeSize()),
 		new NeuronFitnessFunction(ratings), new EliteSelection());
 
+        Debug.Log("Starting simulation");
 		Arena.StartSimulation(population);
 	}
 
@@ -48,8 +55,15 @@ public class GeneticAdvisorController : MonoBehaviour {
 
 	void NextGeneration()
 	{
-		Arena.StopSimulation();
+        Debug.Log("Stopping simulation");
+		Arena.StopSimulation(ratings);
 
-		Arena.StartSimulation();
+        // hack
+        population.FitnessFunction = new NeuronFitnessFunction(ratings);
+
+        population.RunEpoch();
+
+        Debug.Log("Starting another simulation");
+        Arena.StartSimulation(population);
 	}
 }

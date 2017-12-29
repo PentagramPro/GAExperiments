@@ -15,6 +15,7 @@ public class SensorMonitorController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		text.text = string.Format("{0}", Sensor.Signal);
+        if(Sensor!=null)
+		    text.text = string.Format("{0}", Sensor.Signal);
 	}
 }
