@@ -26,6 +26,9 @@ public class GeneticAdvisorController : MonoBehaviour {
 
 	public ArenaController Arena;
 	public NeuronController AnimalPrefab;
+    public Population Population { get { return population; } }
+    public double LastFitnessMax { get; private set; }
+    public double LastFitnessAvg { get; private set; }
 	public Dictionary<IChromosome, double> ratings = new Dictionary<IChromosome, double>();
 
 	public float GenerationLifetime = 15;
@@ -60,6 +63,8 @@ public class GeneticAdvisorController : MonoBehaviour {
 
         // hack
         population.FitnessFunction = new NeuronFitnessFunction(ratings);
+        LastFitnessMax = population.FitnessMax;
+        LastFitnessAvg = population.FitnessAvg;
 
         population.RunEpoch();
 
