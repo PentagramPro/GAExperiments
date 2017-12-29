@@ -237,7 +237,7 @@ MonoBehaviour:
   Arena: {fileID: 1982618954}
   AnimalPrefab: {fileID: 114190795897607718, guid: 25fea0cb10f59024cbf2a2c5802e1343,
     type: 2}
-  GenerationLifetime: 8
+  GenerationLifetime: 18
 --- !u!1 &562782601
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,7 +528,7 @@ MonoBehaviour:
     type: 2}
   FoodPrefab: {fileID: 114810191238160528, guid: c12df52b703e54644ab0b8a46cf65539,
     type: 2}
-  FoodCount: 15
+  FoodCount: 25
 --- !u!4 &1982618955
 Transform:
   m_ObjectHideFlags: 0

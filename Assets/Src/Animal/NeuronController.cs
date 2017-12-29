@@ -55,7 +55,7 @@ public class NeuronController : MonoBehaviour {
 	}
 	ActivationNetwork CreateNetwork()
 	{
-		return new ActivationNetwork(new SigmoidFunction(2), Sensors.Count, Actuators.Count, Actuators.Count);
+		return new ActivationNetwork(new SigmoidFunction(2), Sensors.Count, Sensors.Count, Sensors.Count, Actuators.Count);
 	}
 
 	int CalculateNetworkSize(ActivationNetwork net)

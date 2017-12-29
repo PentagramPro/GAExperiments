@@ -38,6 +38,7 @@ public class GeneticAdvisorController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         Debug.Log("Creating population");
+        Time.timeScale = 2;
         population = new Population(20,
 		new DoubleArrayChromosome(new StandardGenerator(), new StandardGenerator(), new StandardGenerator(), AnimalPrefab.PrefabGetGenomeSize()),
 		new NeuronFitnessFunction(ratings), new EliteSelection());
